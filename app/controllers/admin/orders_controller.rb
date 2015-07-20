@@ -7,7 +7,9 @@ module Admin
 
     def altisource_report
       @orders = orders_query
-      render xlsx: 'altisource_report', disposition: 'inline' #, filename: "my_new_filename.xlsx"
+
+      # TODO: filename: "my_new_filename.xlsx"
+      render xlsx: 'altisource_report', disposition: 'inline'
     end
 
     private
@@ -29,9 +31,15 @@ module Admin
 
       unpaid_orders = Order.where(paid_date: nil)
       @q = unpaid_orders.ransack(params[:q])
-      params[:q] ?
-        @q.result.includes(order_includes).order('complete_date DESC') :
+
+      if params[:q]
+        @q.result
+          .includes(order_includes)
+          .order('complete_date DESC')
+          .page(params[:page])
+      else
         Order.none
+      end
     end
 
     def order_includes

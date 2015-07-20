@@ -36,6 +36,7 @@
       <p><em>No orders found</em></p>
     </div>
   <% else %>
+    <%= paginate @orders %>
     <table class="table table-hover">
       <thead>
         <th>J&J #</th>
@@ -62,5 +63,6 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @orders %>
   <% end %>
 </div>

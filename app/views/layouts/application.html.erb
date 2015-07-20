@@ -7,6 +7,21 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="bs-component">
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <%= link_to "J&J", admin_db_uploads_path, class: "navbar-brand" %>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'DB Upload', admin_db_uploads_path %></li>
+            <li><%= link_to 'Reconcile Orders', admin_orders_path %></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
   <div class="container">
     <%= yield %>
   </div>

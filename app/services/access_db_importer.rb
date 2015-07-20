@@ -88,7 +88,7 @@ class AccessDBImporter
       include GenericCSVImporter
 
       def create!(row)
-        order = Order.find_or_create_by!(
+        Order.find_or_create_by!(
           id: row[:orderid].to_i,
           client_id: row[:client].to_i,
           service: row[:service],
@@ -100,7 +100,6 @@ class AccessDBImporter
           prop_name: row[:propname]
         )
       rescue Exception => e
-        binding.pry
       end
     end
 

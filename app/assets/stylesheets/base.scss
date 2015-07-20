@@ -1,0 +1,7 @@
+.darker {
+  background-color: #f5f5f5;
+}
+
+tr:hover > td.darker {
+  background-color: darken(#f5f5f5, 30%);
+}

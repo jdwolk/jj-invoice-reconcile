@@ -15,6 +15,8 @@ gem 'money-rails'
 gem 'ransack', '~> 1.6.6'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootswatch-rails'
+#gem 'bootstrap-datepicker-rails', '~> 1.4.0'
+gem 'bootstrap-datepicker-rails', '~> 1.3.0.2'
 gem 'select2-rails', '~> 3.5.9.3'
 
 group :development, :test do

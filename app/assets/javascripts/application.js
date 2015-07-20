@@ -21,6 +21,7 @@
 $(document).ready(function() {
   $(".js-example-basic-single").select2();
   $(".datepicker").datepicker({
-    orientation: "top left"
+    orientation: "top left",
+    autoclose: true
   });
 });

@@ -1,6 +1,20 @@
 module Admin
   class OrdersController < BaseController
     def index
+      @orders = orders_query
+      @clients = Client.where('length(name) > 1').order(name: 'ASC')
+    end
+
+    def altisource_report
+      @orders = orders_query
+      render xlsx: 'altisource_report', disposition: 'inline' #, filename: "my_new_filename.xlsx"
+    end
+
+    private
+
+    def orders_query
+      params[:q] ||= {}
+
       if params[:q][:client_id_eq].present?
         params[:q][:client_id_eq] = params[:q][:client_id_eq].to_i
       end
@@ -15,14 +29,10 @@ module Admin
 
       unpaid_orders = Order.where(paid_date: nil)
       @q = unpaid_orders.ransack(params[:q])
-      @orders =
-        params[:q] ?
+      params[:q] ?
         @q.result.includes(order_includes).order('complete_date DESC') :
         Order.none
-      @clients = Client.where('length(name) > 1').order(name: 'ASC')
     end
-
-    private
 
     def order_includes
       [:client]

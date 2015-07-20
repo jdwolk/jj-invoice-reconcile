@@ -1,5 +1,8 @@
 <div class="page-header">
-  <h2>Unpaid Orders</h2>
+  <h2>
+    <span>Unpaid Orders</span>
+    <%= link_to 'Altisource Report', altisource_report_admin_orders_path(q: params[:q], format: 'xlsx'), class: 'btn btn-primary pull-right' %>
+  </h2>
 </div>
 
 <div class="row">
@@ -7,7 +10,7 @@
     <fieldset>
       <div class="form-group col-md-4">
         <%= f.label :client_id_eq, 'Client Name' %>
-        <%= f.select :client_id_eq, options_from_collection_for_select(@clients, 'id', 'name'), {}, class: 'form-control js-example-basic-single', selected: params[:q].try { |p| p[:client_id_eq].try(:to_s) } %>
+        <%= f.select :client_id_eq, options_from_collection_for_select(@clients, 'id', 'name'), {}, class: 'form-control js-example-basic-single' %>
       </div>
 
       <div class="form-group col-md-3">

@@ -20,7 +20,9 @@ gem 'bootstrap-datepicker-rails', '~> 1.3.0.2'
 gem 'select2-rails', '~> 3.5.9.3'
 gem 'thin'
 gem 'chronic', '~> 0.10.2'
-
+gem 'report_card', github: 'philosophie/report_card'
+gem 'axlsx', '~> 2.0.1'
+gem 'axlsx_rails', '~> 0.4.0'
 
 group :development, :test do
   gem 'pry-rails'

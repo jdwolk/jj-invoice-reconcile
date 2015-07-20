@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Report") do |sheet|
+  sheet.add_row ["Altisource File #", "Vendor Invoice Amt", "Date of Invoice"]
+  @orders.each do |order|
+    sheet.add_row [order.external_reference_num, humanized_money_with_symbol(order.service_fee), order.complete_date]
+  end
+end

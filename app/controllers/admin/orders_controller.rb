@@ -3,7 +3,8 @@ module Admin
     def index
       unpaid_orders = Order.includes(order_includes).where(paid_date: nil)
       @q = unpaid_orders.ransack(params[:q])
-      @people = @q.result(distinct: true)
+      @clients = Client.where('length(name) > 1').order(name: 'ASC')
+      @orders = @q.result(distinct: true)
     end
 
     private

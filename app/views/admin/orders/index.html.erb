@@ -1,17 +1,22 @@
 <h1>Orders</h1>
 
-<%= search_form_for @q do |f| %>
-  # Search if the name field contains...
-  <%= f.label :name_cont %>
-  <%= f.search_field :name_cont %>
+<%= search_form_for [:admin, @q], html: { class: 'form-inline' } do |f| %>
+  <div class="form-group col-md-4">
+    <%= f.label :client_id, 'Client Name' %>
+    <%= f.select :client_id, options_from_collection_for_select(@clients, 'id', 'name'), {}, class: 'form-control js-example-basic-single' %>
+  </div>
 
-  # Search if an associated articles.title starts with...
-  <%= f.label :articles_title_start %>
-  <%= f.search_field :articles_title_start %>
+  <div class="form-group col-md-3">
+    <%= f.label :complete_date_gteq, 'From' %>
+    <%= f.search_field :complete_date_gteq, class: 'form-control' %>
+  </div>
 
-  # Attributes may be chained. Search multiple attributes for one value...
-  <%= f.label :name_or_description_or_email_or_articles_title_cont %>
-  <%= f.search_field :name_or_description_or_email_or_articles_title_cont %>
+  <div class="form-group col-md-3">
+    <%= f.label :complete_date_gteq, 'To' %>
+    <%= f.search_field :complete_date_lteq, class: 'form-control' %>
+  </div>
 
-  <%= f.submit %>
+  <div class="col-md-2">
+    <%= f.submit 'Search', class: 'btn btn-default' %>
+  </div>
 <% end %>

@@ -13,5 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require select2
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $(".js-example-basic-single").select2();
+});

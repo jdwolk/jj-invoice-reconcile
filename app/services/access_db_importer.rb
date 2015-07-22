@@ -9,10 +9,12 @@ class AccessDBImporter
   CLIENTS_CSV = CSV_DATA_DIR.join('tblClientList.csv')
 
   def initialize
+    drop_db if ENV['DROP_DB']
     create_csv_dir!
   end
 
   def import!(access_db_backend_file)
+    puts "Importing data from #{access_db_backend_file}"
     to_csvs!(access_db_backend_file)
     models_to_csvs.each do |model, csv_file|
       CSVImporter.new(csv_file, model).import!
@@ -32,6 +34,12 @@ class AccessDBImporter
     `#{CSV_SCRIPT} #{access_db_backend_file} #{csv_dir}`
   end
 
+  def drop_db
+    puts 'Dropping existing Orders and Clients'
+    Order.destroy_all
+    Client.destroy_all
+  end
+
   def create_csv_dir!
     if File.exist?(csv_dir)
       puts 'Removing existing csv dir'
@@ -49,9 +57,7 @@ class AccessDBImporter
   class CSVImporter
     module GenericCSVImporter
       def import!
-        CSV.foreach(csv_file, headers: true, header_converters: :symbol) do |row|
-          create!(row)
-        end
+        read_csv(csv_file, &method(:create!))
       end
 
       def parse_date(date)
@@ -60,6 +66,14 @@ class AccessDBImporter
 
       def parse_money(amt)
         amt.try { |val| (val.to_f * 100).to_i } || 0
+      end
+
+      private
+
+      def read_csv(csv, &blk)
+        CSV.foreach(csv_file, headers: true, header_converters: :symbol) do |row|
+          blk.call(row)
+        end
       end
     end
 

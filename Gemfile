@@ -24,6 +24,9 @@ gem 'report_card', github: 'philosophie/report_card'
 gem 'axlsx', '~> 2.0.1'
 gem 'axlsx_rails', '~> 0.4.0'
 gem 'kaminari', '~> 0.16.3'
+gem 'google_drive', '~> 1.0.1'
+#gem 'google-api-client', '~> 0.8.6'
+gem 'httparty'
 
 group :development, :test do
   gem 'pry-rails'

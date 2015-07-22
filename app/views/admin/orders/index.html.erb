@@ -1,6 +1,7 @@
 <div class="page-header">
   <h2>
     <span>Unpaid Orders</span>
+    <small>as of <%= format_datetime DBUpload.last.upload_time %></small>
     <%= link_to 'Altisource Report', altisource_report_admin_orders_path(q: params[:q], format: 'xlsx'), class: 'btn btn-primary pull-right' %>
   </h2>
 </div>

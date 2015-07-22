@@ -16,8 +16,12 @@ class AccessDBImporter
   def import!(access_db_backend_file)
     puts "Importing data from #{access_db_backend_file}"
     to_csvs!(access_db_backend_file)
-    models_to_csvs.each do |model, csv_file|
-      CSVImporter.new(csv_file, model).import!
+
+    ActiveRecord::Base.transaction do
+      models_to_csvs.each do |model, csv_file|
+        CSVImporter.new(csv_file, model).import!
+      end
+      track_upload!(access_db_backend_file)
     end
   end
 
@@ -38,6 +42,10 @@ class AccessDBImporter
     puts 'Dropping existing Orders and Clients'
     Order.destroy_all
     Client.destroy_all
+  end
+
+  def track_upload!(_db_url)
+    DBUpload.create!(upload_time: Time.now)
   end
 
   def create_csv_dir!
